@@ -1,9 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:travel_zone/widgets/previews.dart';
 
@@ -94,6 +92,13 @@ class _SpurVillageExcursionState extends State<SpurVillageExcursion> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: mainText(
+                  'Аудиоэкскурсия: ',
+                  Colors.black,
+                ),
+              ),
               LimitedBox(
                   maxHeight: 150,
                   child: Column(
@@ -128,6 +133,13 @@ class _SpurVillageExcursionState extends State<SpurVillageExcursion> {
                       Controls(audioPlayer: _audioPlayer),
                     ],
                   )),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: mainText(
+                  'Дополнительная информация: ',
+                  Colors.black,
+                ),
+              ),
             ],
           ),
         ));
@@ -157,17 +169,7 @@ class Controls extends StatelessWidget {
         final playerState = snapshot.data;
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
-        AudioSource.uri(
-          Uri.parse('assets/audio/black_spur/spur.mp3'),
-          tag: MediaItem(
-            // Specify a unique ID for each media item:
-            id: '1',
-            // Metadata to display in the notification:
-            album: "Село Черный Отрог",
-            title: "Станция Чёрный Отрог",
-            artUri: Uri.parse('assets/images/black_spur/church.jpg'),
-          ),
-        );
+
         if (!(playing ?? false)) {
           return IconButton(
             onPressed: audioPlayer.play,

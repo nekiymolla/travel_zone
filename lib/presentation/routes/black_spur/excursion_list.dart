@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_zone/presentation/routes/black_spur/village_excursion.dart';
 import 'package:travel_zone/route/router.gr.dart';
 import 'package:travel_zone/widgets/text.dart';
 
@@ -45,10 +46,10 @@ class _SpurExcursionListState extends State<SpurExcursionList> {
               children: <Widget>[
                 PreviewButton(
                     onPressed: () {
-                      context.router.push(SpurVillageExcursionRoute());
+                      context.router.navigate(SpurVillageExcursionRoute());
                     },
                     image: Image.asset(
-                      'assets/images/mustafino/mustafino.jpg',
+                      'assets/images/saraktash/mustafino.jpg',
                       fit: BoxFit.cover,
                     ),
                     title: 'Село Черный Отрог',
@@ -57,12 +58,15 @@ class _SpurExcursionListState extends State<SpurExcursionList> {
                   height: 10,
                 ),
                 PreviewButton(
+                    onPressed: () {
+                      context.router.navigate(StationSpurExcursionRoute());
+                    },
                     image: Image.asset(
                       'assets/images/black_spur/rzd.jpeg',
                       fit: BoxFit.cover,
                     ),
                     title: 'Станция Черный Отрог',
-                    description: 'Экскурсия по селу Казанка'),
+                    description: 'Экскурсия по станции села'),
               ],
             ),
           ),

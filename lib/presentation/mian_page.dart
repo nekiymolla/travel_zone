@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:travel_zone/route/router.gr.dart';
 import 'package:travel_zone/widgets/previews.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -12,19 +15,132 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  GlobalKey mapKey = GlobalKey();
+  late YandexMapController controller;
+
+  Future<bool> get locationPermissionNotGranted async =>
+      !(await Permission.location.request().isGranted);
+
+  void _showMessage(BuildContext context, Text text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: text));
+  }
+
+  List<MapObject> mapObjects(BuildContext context) {
+    return <MapObject>[
+      PlacemarkMapObject(
+        mapId: MapObjectId('black_spur'),
+        point: Point(latitude: 51.886880, longitude: 55.999591),
+        onTap: (PlacemarkMapObject self, Point point) {
+          context.router.navigate(SpurExcursionListRouter(excListId: 1));
+        },
+        opacity: 1,
+        direction: 0,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+              image: BitmapDescriptor.fromAssetImage(
+                'assets/mapimages/geometka.png',
+              ),
+              rotationType: RotationType.rotate),
+        ),
+      ),
+      PlacemarkMapObject(
+        mapId: MapObjectId('saraktash'),
+        point: Point(latitude: 51.782136, longitude: 56.357759),
+        onTap: (PlacemarkMapObject self, Point point) {
+          context.router
+              .navigate(SaraktashExcursionListRouter(sarExcListId: 1));
+        },
+        opacity: 1,
+        direction: 0,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+              image: BitmapDescriptor.fromAssetImage(
+                'assets/mapimages/geometka.png',
+              ),
+              rotationType: RotationType.rotate),
+        ),
+      ),
+      PlacemarkMapObject(
+        mapId: MapObjectId('studentsi'),
+        point: Point(latitude: 51.86726818829387, longitude: 55.85910413958319),
+        onTap: (PlacemarkMapObject self, Point point) {
+          context.router
+              .navigate(StudentsiExcursionListRouter(studExcListId: 1));
+        },
+        opacity: 1,
+        direction: 0,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+              image: BitmapDescriptor.fromAssetImage(
+                'assets/mapimages/geometka.png',
+              ),
+              rotationType: RotationType.rotate),
+        ),
+      ),
+      PlacemarkMapObject(
+        mapId: MapObjectId('puh_platok'),
+        point: Point(latitude: 51.789146547287274, longitude: 55.1479283059283),
+        onTap: (PlacemarkMapObject self, Point point) {
+          context.router.navigate(ReserveOrenExcursionRouter(reserveId: 1));
+        },
+        opacity: 1,
+        direction: 0,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+              image: BitmapDescriptor.fromAssetImage(
+                'assets/mapimages/geometka.png',
+              ),
+              rotationType: RotationType.rotate),
+        ),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
         LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return SizedBox(height: constraints.maxHeight, child: YandexMap());
+            return SizedBox(
+                height: constraints.maxHeight,
+                child: YandexMap(
+                  key: mapKey,
+                  onMapCreated:
+                      (YandexMapController yandexMapController) async {
+                    controller = yandexMapController;
+                  },
+                  mapObjects: mapObjects(context),
+                  onUserLocationAdded: (UserLocationView view) async {
+                    return view.copyWith(
+                        pin: view.pin.copyWith(
+                          icon: PlacemarkIcon.single(
+                            PlacemarkIconStyle(
+                              image: BitmapDescriptor.fromAssetImage(
+                                  'assets/mapimages/place.png'),
+                            ),
+                          ),
+                        ),
+                        arrow: view.arrow.copyWith(
+                          icon: PlacemarkIcon.single(
+                            PlacemarkIconStyle(
+                              image: BitmapDescriptor.fromAssetImage(
+                                'assets/mapimages/arrow.png',
+                              ),
+                            ),
+                          ),
+                        ),
+                        accuracyCircle: view.accuracyCircle.copyWith(
+                            fillColor:
+                                const Color(0xFF80d0ea).withOpacity(0.5)));
+                  },
+                ));
           },
         ),
         DraggableScrollableSheet(
             initialChildSize: 0.1,
             minChildSize: 0.1,
-            maxChildSize: 0.5,
+            maxChildSize: 0.6,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 decoration: BoxDecoration(
@@ -73,42 +189,46 @@ class _MapPageState extends State<MapPage> {
                           height: 10,
                         ),
                         PreviewButton(
+                            onPressed: () {
+                              context.router.navigate(
+                                  SaraktashExcursionListRouter(
+                                      sarExcListId: 1));
+                            },
                             image: Image.asset(
-                              'assets/images/mustafino/mustafino.jpg',
+                              'assets/images/saraktash/mustafino.jpg',
                               fit: BoxFit.cover,
                             ),
-                            title: 'с.Мустафино',
-                            description: 'Экскурсия по селу Мустафино'),
+                            title: 'п.Саракташ',
+                            description: 'Экскурсия по Саракташу'),
                         SizedBox(
                           height: 10,
                         ),
                         PreviewButton(
+                            onPressed: () {
+                              context.router.navigate(
+                                  StudentsiExcursionListRouter(
+                                      studExcListId: 1));
+                            },
                             image: Image.asset(
-                              'assets/images/kazanka/kazanka.jpg',
+                              'assets/images/studentsi/kazanka.jpg',
                               fit: BoxFit.cover,
                             ),
-                            title: 'с.Казанка',
-                            description: 'Экскурсия по селу Казанка'),
+                            title: 'с.Студенцы',
+                            description: 'Экскурсия по селу Студенцы'),
                         SizedBox(
                           height: 10,
                         ),
                         PreviewButton(
+                            onPressed: () {
+                              context.router.navigate(
+                                  ReserveOrenExcursionRouter(reserveId: 1));
+                            },
                             image: Image.asset(
-                              'assets/images/grigorievka/grigorievka.jpeg',
+                              'assets/images/oren_reserve/zavod.jpeg',
                               fit: BoxFit.cover,
                             ),
-                            title: 'с.Григорьевка',
-                            description: 'Экскурсия по селу Григорьевка'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        PreviewButton(
-                            image: Image.asset(
-                              'assets/images/oren_reserve/reserve.jpeg',
-                              fit: BoxFit.cover,
-                            ),
-                            title: '"Оренбургский"',
-                            description: 'Оренбургский заповедник'),
+                            title: 'Пуховый платок',
+                            description: 'Оренбургский Пуховый Платок'),
                       ],
                     ),
                   ),
@@ -116,6 +236,42 @@ class _MapPageState extends State<MapPage> {
               );
             })
       ]),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 150,
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Color(0xFF80d0ea),
+              onPressed: () async {
+                if (await locationPermissionNotGranted) {
+                  _showMessage(
+                      context, const Text('Нужно разрешение на геолокацию'));
+                  return;
+                }
+                final mediaQuery = MediaQuery.of(context);
+                final height = mapKey.currentContext!.size!.height *
+                    mediaQuery.devicePixelRatio;
+                final width = mapKey.currentContext!.size!.width *
+                    mediaQuery.devicePixelRatio;
+                await controller.toggleUserLayer(
+                    visible: true,
+                    autoZoomEnabled: true,
+                    anchor: UserLocationAnchor(
+                        course: Offset(0.5 * width, 0.5 * height),
+                        normal: Offset(0.5 * width, 0.5 * height)));
+              },
+              child: const Icon(Icons.place_outlined),
+            ),
+          ),
+          Spacer(
+            flex: 1,
+          ),
+        ],
+      ),
     );
   }
 }
+//Color(0xFF80d0ea),

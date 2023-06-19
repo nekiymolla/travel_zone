@@ -4,11 +4,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:travel_zone/route/router.gr.dart';
 
 Future<void> main() async {
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
-    androidNotificationChannelName: 'Audio playback',
-    androidNotificationOngoing: true,
-  );
+  // & runZoneGuarded?
   final _appRouter = AppRouter();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
