@@ -11,8 +11,13 @@ import 'package:travel_zone/presentation/routes/saraktash/saraktash_excursion.da
 import 'package:travel_zone/presentation/routes/studentsi/excursion_list.dart';
 import 'package:travel_zone/presentation/routes/studentsi/studentsi_church.dart';
 import 'package:travel_zone/presentation/routes/studentsi/studentsi_excursion.dart';
+import 'package:travel_zone/presentation/video_page.dart';
 
 @MaterialAutoRouter(routes: [
+  AutoRoute(
+    page: VideoPlayerView,
+    initial: true,
+  ),
   AutoRoute(
     page: SpurVillageExcursion,
     path: '/SpurVillageExcursion',
@@ -43,36 +48,32 @@ import 'package:travel_zone/presentation/routes/studentsi/studentsi_excursion.da
     path: '/StudentsiExcursion',
     name: 'studentsiExcursionRoute',
   ),
-  AutoRoute(
-      page: EmptyRouterPage,
-      initial: true,
-      path: '/mapEmptyPage',
-      children: [
-        AutoRoute(
-          path: '',
-          page: MapPage,
-          name: 'MapPageRoute',
-        ),
-        AutoRoute(
-          path: ':excListId',
-          name: 'SpurExcursionListRouter',
-          page: SpurExcursionList,
-        ),
-        AutoRoute(
-          path: ':sarExcListId',
-          name: 'SaraktashExcursionListRouter',
-          page: SaraktashExcursionList,
-        ),
-        AutoRoute(
-          path: ':studExcListId',
-          name: 'StudentsiExcursionListRouter',
-          page: StudentsiExcursionList,
-        ),
-        AutoRoute(
-          path: ':reserveId',
-          name: 'ReserveOrenExcursionRouter',
-          page: ReserveOrenExcursion,
-        ),
-      ]),
+  AutoRoute(page: EmptyRouterPage, path: '/mapEmptyPage', children: [
+    AutoRoute(
+      path: '',
+      page: MapPage,
+      name: 'MapPageRoute',
+    ),
+    AutoRoute(
+      path: ':excListId',
+      name: 'SpurExcursionListRouter',
+      page: SpurExcursionList,
+    ),
+    AutoRoute(
+      path: ':sarExcListId',
+      name: 'SaraktashExcursionListRouter',
+      page: SaraktashExcursionList,
+    ),
+    AutoRoute(
+      path: ':studExcListId',
+      name: 'StudentsiExcursionListRouter',
+      page: StudentsiExcursionList,
+    ),
+    AutoRoute(
+      path: ':reserveId',
+      name: 'ReserveOrenExcursionRouter',
+      page: ReserveOrenExcursion,
+    ),
+  ]),
 ])
 class $AppRouter {}

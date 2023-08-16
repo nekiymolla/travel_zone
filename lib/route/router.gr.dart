@@ -11,74 +11,87 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:auto_route/empty_router_widgets.dart' as _i7;
-import 'package:flutter/material.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:auto_route/empty_router_widgets.dart' as _i8;
+import 'package:flutter/material.dart' as _i15;
+import 'package:video_player/video_player.dart' as _i16;
 
-import '../presentation/mian_page.dart' as _i8;
-import '../presentation/routes/black_spur/excursion_list.dart' as _i9;
-import '../presentation/routes/black_spur/station_black_spur.dart' as _i2;
-import '../presentation/routes/black_spur/village_excursion.dart' as _i1;
-import '../presentation/routes/oren_reserve/oren_reserve.dart' as _i12;
-import '../presentation/routes/saraktash/excursion_list.dart' as _i10;
-import '../presentation/routes/saraktash/saraktach_church.dart' as _i4;
-import '../presentation/routes/saraktash/saraktash_excursion.dart' as _i3;
-import '../presentation/routes/studentsi/excursion_list.dart' as _i11;
-import '../presentation/routes/studentsi/studentsi_church.dart' as _i5;
-import '../presentation/routes/studentsi/studentsi_excursion.dart' as _i6;
+import '../presentation/mian_page.dart' as _i9;
+import '../presentation/routes/black_spur/excursion_list.dart' as _i10;
+import '../presentation/routes/black_spur/station_black_spur.dart' as _i3;
+import '../presentation/routes/black_spur/village_excursion.dart' as _i2;
+import '../presentation/routes/oren_reserve/oren_reserve.dart' as _i13;
+import '../presentation/routes/saraktash/excursion_list.dart' as _i11;
+import '../presentation/routes/saraktash/saraktach_church.dart' as _i5;
+import '../presentation/routes/saraktash/saraktash_excursion.dart' as _i4;
+import '../presentation/routes/studentsi/excursion_list.dart' as _i12;
+import '../presentation/routes/studentsi/studentsi_church.dart' as _i6;
+import '../presentation/routes/studentsi/studentsi_excursion.dart' as _i7;
+import '../presentation/video_page.dart' as _i1;
 
-class AppRouter extends _i13.RootStackRouter {
-  AppRouter([_i14.GlobalKey<_i14.NavigatorState>? navigatorKey])
+class AppRouter extends _i14.RootStackRouter {
+  AppRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i13.PageFactory> pagesMap = {
-    SpurVillageExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+  final Map<String, _i14.PageFactory> pagesMap = {
+    VideoPlayerViewRoute.name: (routeData) {
+      final args = routeData.argsAs<VideoPlayerViewRouteArgs>();
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i1.SpurVillageExcursion(),
+        child: _i1.VideoPlayerView(
+          key: args.key,
+          url: args.url,
+          dataSourceType: args.dataSourceType,
+        ),
+      );
+    },
+    SpurVillageExcursionRoute.name: (routeData) {
+      return _i14.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i2.SpurVillageExcursion(),
       );
     },
     StationSpurExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.StationBlackSpurExcursion(),
+        child: const _i3.StationBlackSpurExcursion(),
       );
     },
     SaraktashExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.SaraktashExcursion(),
+        child: const _i4.SaraktashExcursion(),
       );
     },
     ChurchSaraktashExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.ChurchSaraktashExcursion(),
+        child: const _i5.ChurchSaraktashExcursion(),
       );
     },
     ChurchStudentsiExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.ChurchStudentsi(),
+        child: const _i6.ChurchStudentsi(),
       );
     },
     StudentsiExcursionRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.StudentsiExcursion(),
+        child: const _i7.StudentsiExcursion(),
       );
     },
     EmptyRouterPageRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.EmptyRouterPage(),
+        child: const _i8.EmptyRouterPage(),
       );
     },
     MapPageRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.MapPage(),
+        child: const _i9.MapPage(),
       );
     },
     SpurExcursionListRouter.name: (routeData) {
@@ -86,9 +99,9 @@ class AppRouter extends _i13.RootStackRouter {
       final args = routeData.argsAs<SpurExcursionListRouterArgs>(
           orElse: () => SpurExcursionListRouterArgs(
               excListId: pathParams.getInt('excListId')));
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i9.SpurExcursionList(
+        child: _i10.SpurExcursionList(
           key: args.key,
           excListId: args.excListId,
         ),
@@ -99,9 +112,9 @@ class AppRouter extends _i13.RootStackRouter {
       final args = routeData.argsAs<SaraktashExcursionListRouterArgs>(
           orElse: () => SaraktashExcursionListRouterArgs(
               sarExcListId: pathParams.getInt('sarExcListId')));
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i10.SaraktashExcursionList(
+        child: _i11.SaraktashExcursionList(
           key: args.key,
           sarExcListId: args.sarExcListId,
         ),
@@ -112,9 +125,9 @@ class AppRouter extends _i13.RootStackRouter {
       final args = routeData.argsAs<StudentsiExcursionListRouterArgs>(
           orElse: () => StudentsiExcursionListRouterArgs(
               studExcListId: pathParams.getInt('studExcListId')));
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i11.StudentsiExcursionList(
+        child: _i12.StudentsiExcursionList(
           key: args.key,
           studExcListId: args.studExcListId,
         ),
@@ -125,9 +138,9 @@ class AppRouter extends _i13.RootStackRouter {
       final args = routeData.argsAs<ReserveOrenExcursionRouterArgs>(
           orElse: () => ReserveOrenExcursionRouterArgs(
               reserveId: pathParams.getInt('reserveId')));
-      return _i13.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i12.ReserveOrenExcursion(
+        child: _i13.ReserveOrenExcursion(
           key: args.key,
           reserveId: args.reserveId,
         ),
@@ -136,62 +149,60 @@ class AppRouter extends _i13.RootStackRouter {
   };
 
   @override
-  List<_i13.RouteConfig> get routes => [
-        _i13.RouteConfig(
-          '/#redirect',
+  List<_i14.RouteConfig> get routes => [
+        _i14.RouteConfig(
+          VideoPlayerViewRoute.name,
           path: '/',
-          redirectTo: '/mapEmptyPage',
-          fullMatch: true,
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           SpurVillageExcursionRoute.name,
           path: '/SpurVillageExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           StationSpurExcursionRoute.name,
           path: '/StationBlackSpurExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           SaraktashExcursionRoute.name,
           path: '/SaraktashExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           ChurchSaraktashExcursionRoute.name,
           path: '/ChurchSaraktashExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           ChurchStudentsiExcursionRoute.name,
           path: '/ChurchStudentsiExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           StudentsiExcursionRoute.name,
           path: '/StudentsiExcursion',
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           EmptyRouterPageRoute.name,
           path: '/mapEmptyPage',
           children: [
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               MapPageRoute.name,
               path: '',
               parent: EmptyRouterPageRoute.name,
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               SpurExcursionListRouter.name,
               path: ':excListId',
               parent: EmptyRouterPageRoute.name,
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               SaraktashExcursionListRouter.name,
               path: ':sarExcListId',
               parent: EmptyRouterPageRoute.name,
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               StudentsiExcursionListRouter.name,
               path: ':studExcListId',
               parent: EmptyRouterPageRoute.name,
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               ReserveOrenExcursionRouter.name,
               path: ':reserveId',
               parent: EmptyRouterPageRoute.name,
@@ -202,8 +213,48 @@ class AppRouter extends _i13.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.SpurVillageExcursion]
-class SpurVillageExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i1.VideoPlayerView]
+class VideoPlayerViewRoute
+    extends _i14.PageRouteInfo<VideoPlayerViewRouteArgs> {
+  VideoPlayerViewRoute({
+    _i15.Key? key,
+    required String url,
+    required _i16.DataSourceType dataSourceType,
+  }) : super(
+          VideoPlayerViewRoute.name,
+          path: '/',
+          args: VideoPlayerViewRouteArgs(
+            key: key,
+            url: url,
+            dataSourceType: dataSourceType,
+          ),
+        );
+
+  static const String name = 'VideoPlayerViewRoute';
+}
+
+class VideoPlayerViewRouteArgs {
+  const VideoPlayerViewRouteArgs({
+    this.key,
+    required this.url,
+    required this.dataSourceType,
+  });
+
+  final _i15.Key? key;
+
+  final String url;
+
+  final _i16.DataSourceType dataSourceType;
+
+  @override
+  String toString() {
+    return 'VideoPlayerViewRouteArgs{key: $key, url: $url, dataSourceType: $dataSourceType}';
+  }
+}
+
+/// generated route for
+/// [_i2.SpurVillageExcursion]
+class SpurVillageExcursionRoute extends _i14.PageRouteInfo<void> {
   const SpurVillageExcursionRoute()
       : super(
           SpurVillageExcursionRoute.name,
@@ -214,8 +265,8 @@ class SpurVillageExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.StationBlackSpurExcursion]
-class StationSpurExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i3.StationBlackSpurExcursion]
+class StationSpurExcursionRoute extends _i14.PageRouteInfo<void> {
   const StationSpurExcursionRoute()
       : super(
           StationSpurExcursionRoute.name,
@@ -226,8 +277,8 @@ class StationSpurExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.SaraktashExcursion]
-class SaraktashExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i4.SaraktashExcursion]
+class SaraktashExcursionRoute extends _i14.PageRouteInfo<void> {
   const SaraktashExcursionRoute()
       : super(
           SaraktashExcursionRoute.name,
@@ -238,8 +289,8 @@ class SaraktashExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ChurchSaraktashExcursion]
-class ChurchSaraktashExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i5.ChurchSaraktashExcursion]
+class ChurchSaraktashExcursionRoute extends _i14.PageRouteInfo<void> {
   const ChurchSaraktashExcursionRoute()
       : super(
           ChurchSaraktashExcursionRoute.name,
@@ -250,8 +301,8 @@ class ChurchSaraktashExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.ChurchStudentsi]
-class ChurchStudentsiExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i6.ChurchStudentsi]
+class ChurchStudentsiExcursionRoute extends _i14.PageRouteInfo<void> {
   const ChurchStudentsiExcursionRoute()
       : super(
           ChurchStudentsiExcursionRoute.name,
@@ -262,8 +313,8 @@ class ChurchStudentsiExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.StudentsiExcursion]
-class StudentsiExcursionRoute extends _i13.PageRouteInfo<void> {
+/// [_i7.StudentsiExcursion]
+class StudentsiExcursionRoute extends _i14.PageRouteInfo<void> {
   const StudentsiExcursionRoute()
       : super(
           StudentsiExcursionRoute.name,
@@ -274,9 +325,9 @@ class StudentsiExcursionRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.EmptyRouterPage]
-class EmptyRouterPageRoute extends _i13.PageRouteInfo<void> {
-  const EmptyRouterPageRoute({List<_i13.PageRouteInfo>? children})
+/// [_i8.EmptyRouterPage]
+class EmptyRouterPageRoute extends _i14.PageRouteInfo<void> {
+  const EmptyRouterPageRoute({List<_i14.PageRouteInfo>? children})
       : super(
           EmptyRouterPageRoute.name,
           path: '/mapEmptyPage',
@@ -287,8 +338,8 @@ class EmptyRouterPageRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.MapPage]
-class MapPageRoute extends _i13.PageRouteInfo<void> {
+/// [_i9.MapPage]
+class MapPageRoute extends _i14.PageRouteInfo<void> {
   const MapPageRoute()
       : super(
           MapPageRoute.name,
@@ -299,11 +350,11 @@ class MapPageRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.SpurExcursionList]
+/// [_i10.SpurExcursionList]
 class SpurExcursionListRouter
-    extends _i13.PageRouteInfo<SpurExcursionListRouterArgs> {
+    extends _i14.PageRouteInfo<SpurExcursionListRouterArgs> {
   SpurExcursionListRouter({
-    _i14.Key? key,
+    _i15.Key? key,
     required int excListId,
   }) : super(
           SpurExcursionListRouter.name,
@@ -324,7 +375,7 @@ class SpurExcursionListRouterArgs {
     required this.excListId,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final int excListId;
 
@@ -335,11 +386,11 @@ class SpurExcursionListRouterArgs {
 }
 
 /// generated route for
-/// [_i10.SaraktashExcursionList]
+/// [_i11.SaraktashExcursionList]
 class SaraktashExcursionListRouter
-    extends _i13.PageRouteInfo<SaraktashExcursionListRouterArgs> {
+    extends _i14.PageRouteInfo<SaraktashExcursionListRouterArgs> {
   SaraktashExcursionListRouter({
-    _i14.Key? key,
+    _i15.Key? key,
     required int sarExcListId,
   }) : super(
           SaraktashExcursionListRouter.name,
@@ -360,7 +411,7 @@ class SaraktashExcursionListRouterArgs {
     required this.sarExcListId,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final int sarExcListId;
 
@@ -371,11 +422,11 @@ class SaraktashExcursionListRouterArgs {
 }
 
 /// generated route for
-/// [_i11.StudentsiExcursionList]
+/// [_i12.StudentsiExcursionList]
 class StudentsiExcursionListRouter
-    extends _i13.PageRouteInfo<StudentsiExcursionListRouterArgs> {
+    extends _i14.PageRouteInfo<StudentsiExcursionListRouterArgs> {
   StudentsiExcursionListRouter({
-    _i14.Key? key,
+    _i15.Key? key,
     required int studExcListId,
   }) : super(
           StudentsiExcursionListRouter.name,
@@ -396,7 +447,7 @@ class StudentsiExcursionListRouterArgs {
     required this.studExcListId,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final int studExcListId;
 
@@ -407,11 +458,11 @@ class StudentsiExcursionListRouterArgs {
 }
 
 /// generated route for
-/// [_i12.ReserveOrenExcursion]
+/// [_i13.ReserveOrenExcursion]
 class ReserveOrenExcursionRouter
-    extends _i13.PageRouteInfo<ReserveOrenExcursionRouterArgs> {
+    extends _i14.PageRouteInfo<ReserveOrenExcursionRouterArgs> {
   ReserveOrenExcursionRouter({
-    _i14.Key? key,
+    _i15.Key? key,
     required int reserveId,
   }) : super(
           ReserveOrenExcursionRouter.name,
@@ -432,7 +483,7 @@ class ReserveOrenExcursionRouterArgs {
     required this.reserveId,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final int reserveId;
 
